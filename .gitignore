@@ -1,6 +1,5 @@
 *.pyc
 __pycache__/
-*.pkl
 .env
 data/*.json
 data/*.gz
