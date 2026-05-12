@@ -19,7 +19,7 @@ app = FastAPI(title="Amazon Reviews Sentiment API")
 class ReviewRequest(BaseModel):
     text: str
 
-# Функция очистки текста (та же что в ноутбуке)
+# Функция очистки текста 
 def clean_text(text: str) -> str:
     text = text.lower()
     text = re.sub(r'[^a-zA-Z\s]', '', text)
