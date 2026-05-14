@@ -1,0 +1,15 @@
+echo "docker_image:
+  name: deg1t23/amazon-reviews-ml
+  tag: latest
+
+last_commits:
+  - c8b8b068e8b3b8b12ad2c59a82c93fc5478993a3
+  - c4d66c1fb070ab958824ccf18aaf33b33b7766b7
+  - 7aaafed4df5b029fc13a35351422479145b40797
+  - 7ae263f5f6ef86a383626d891ca2dd3cf5ea1d63
+  - 488fea5126273230acdae52826c37f825f0dfe9e
+
+test_coverage:
+  total_tests: 5
+  passed: 5
+  failed: 0" > dev_sec_ops.yml

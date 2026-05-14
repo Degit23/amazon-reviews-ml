@@ -1,0 +1,39 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+  workflow_dispatch:
+
+jobs:
+  deploy-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Pull Docker image
+      run: docker pull ${{ secrets.DOCKER_USERNAME }}/amazon-reviews-ml:latest
+
+    - name: Run container
+      run: |
+        docker run -d --name test-container -p 8000:8000 \
+        ${{ secrets.DOCKER_USERNAME }}/amazon-reviews-ml:latest
+
+    - name: Wait for startup
+      run: sleep 10
+
+    - name: Test health endpoint
+      run: curl -f http://localhost:8000/health
+
+    - name: Test predict endpoint
+      run: |
+        curl -f -X POST http://localhost:8000/predict \
+        -H "Content-Type: application/json" \
+        -d '{"text": "This album is absolutely amazing!"}'
+
+    - name: Stop container
+      run: docker stop test-container
